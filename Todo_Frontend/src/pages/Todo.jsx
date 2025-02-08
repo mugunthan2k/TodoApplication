@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "../App.css";
 import Api from "../Api/Api";
 
 function Todo() {
