@@ -57,7 +57,7 @@ async function deleteUser(id) {
   
 }
 
-  return <p>{loading ? "Loading..." : "Data fetched successfully!"}</p>;
+  return <p>{loading ? "Loading..." : ""}</p>;
 };
 
 export default Api;
