@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-const Api = ({ onDataFetched, setPostUser, setDeleteUser }) => {
+const Api = ({ onDataFetched, setPostUser, setDeleteUser, setEditUser}) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getUser();
     setPostUser(() => PostUser); // Set the PostUser function in App.js
     setDeleteUser(()=> deleteUser)// set the DeleteUser function in App.js
+    setEditUser(()=> editUser)
   }, []);
 
   // Function to fetch data
@@ -38,7 +39,24 @@ const Api = ({ onDataFetched, setPostUser, setDeleteUser }) => {
     }
 }
 
-//Function to put data
+// Function to update data
+async function editUser(editId,editData) {
+  console.log("Hello editor: ",editId, "  DAta: ",editData);
+  
+  try {
+    const response = await axios.put(`http://localhost:8000/update/${editId}`, editData, {
+      headers: { "Content-Type": "application/json" },
+    });
+
+    console.log("Update Response:", response.status);
+    getUser(); // Refresh table data
+  } catch (error) {
+    console.error("Error updating data:", error.response ? error.response.data : error);
+  }
+}
+
+
+//Function to delete data
 async function deleteUser(id) {
   console.log("api recieve: ",id);
   
