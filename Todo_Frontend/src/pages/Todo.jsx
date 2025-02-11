@@ -9,6 +9,7 @@ function Todo() {
   const [editId, setEditId] = useState(null);
   const [inputData, setInputData] = useState({ name: "", age: "", contact: "" });
   const [editInput, setEditInput] = useState({ name: "", age: "", contact: "" });
+  const [find, setFind]=useState("");
 
   const handleEdit = (item) => {
     setEditId(item.id);
@@ -76,7 +77,22 @@ function Todo() {
         </div>
         {/* Pass setPostUser function */}
 
-        <div className="m-5 sm:block grid grid sm:col-span-2 " >
+        <div className="m-5 sm:block grid grid sm:col-span-2" >
+          <div className="mb-5">
+            <div className="space-x-6 items-center border-b text-xl bg-[#2f2c35] text-[#fdfefe] p-3 rounded-sm">
+              <label>Find</label><input className="bg-gray-200 text-black rounded-lg" type="text" value={find} onChange={(e)=>setFind(e.target.value)} placeholder="Employee Name"></input>
+            </div>
+            {apiData.filter((item) => item.name === find)
+                    .map((item, index) => (
+            <tr key={index} className="shadow hover:bg-gray-100 px-2 ">
+              <td className="py-3 px-6">{item.id}</td>
+              <td className="py-3 px-6">{item.name}</td>
+              <td className="py-3 px-6">{item.age}</td>
+              <td className="py-3 px-6">{item.contact}</td>
+            </tr>
+          ))}
+          </div>
+          <div>
           <h2 className="border-b font-bold text-3xl bg-[#2f2c35] text-[#fdfefe] p-3 rounded-sm">Employees Datas</h2>
 
           <table className="bg-white shadow-lg rounded-lg shadow-md w-full text-center rounded-xl">
@@ -129,6 +145,7 @@ function Todo() {
               ))}
             </tbody>
           </table>
+        </div>
         </div>
       </div>
     </>
